@@ -93,7 +93,7 @@ export const addProjecTeamData = (projectId, teamId) =>{
     return async(dispatch) =>{
         try {
             const response = await axios.post(`http://localhost:8043/projects/${projectId}/teams/${teamId}`);
-            // dispatch(addingProjectTeam(response.data.data));
+            dispatch(addingProjectTeam(response.data.data));
             console.log(response.data)
             notify(response.data.message);
         } catch (error) {
