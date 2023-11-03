@@ -1,68 +1,59 @@
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { useSelector, useDispatch } from "react-redux";
-import {  getUsersDataId } from "../Slices/UserSlices";
-import Button from "react-bootstrap/Button"; 
+import { getUsersDataId } from "../Slices/UserSlices";
+import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useNavigate, useParams } from "react-router-dom";
 import { updateUserIdData } from "../Slices/UserSlices";
-import UserNav from "../Components/UserNav";
-
+import UserNavbar from "../Components/UserNavbar";
 const UsersDashboard = () => {
-  const {users, isLoading, error}  = useSelector((state) => state.userList);
+  const { users, isLoading, error } = useSelector((state) => state.userList);
   console.log("users", users);
-  const {id} = useParams();
-const navigate = useNavigate();
-const [name, setName] = useState("");
-const [email, setEmail] = useState("");
-const [designation, setdesignation] = useState("");
-
-const [uid, setUId] = useState(0);
-const [show, setShow] = useState(false);
-const handleClose = () => setShow(false);
-
-const dispatch = useDispatch();
-// console.log(users);
-
-const updateUser = (uid, name, email, designation) => {
-  // const emailExists = users.some((user) => user.email === email && user.id !== id);
-  // if (emailExists) {
-  //   alert("Email already exists");
-  //   return;
-  // }
-  console.log(uid, name, email, designation);
-  dispatch(updateUserIdData(uid, name, email, designation));
-  handleClose();
-}
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-};
-
-const handleButtonClick = (item) => {
-  setName(item.name);
-  setEmail(item.email);
-  setUId(item.id);
-  setdesignation(item.designation);
-  setShow(true);
-};
-
-useEffect(() => {
-  // console.log("hello");
-  dispatch(getUsersDataId(id));
-},[]);
-
-if (isLoading) {
-  return <div>Loading...</div>;
-}
-
-if (error) {
-  return <div>Error: {error.message}</div>;
-}
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [designation, setdesignation] = useState("");
+  const [uid, setUId] = useState(0);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const dispatch = useDispatch();
+  // console.log(users);
+  const updateUser = (uid, name, email, designation) => {
+    // const emailExists = users.some((user) => user.email === email && user.id !== id);
+    // if (emailExists) {
+    //   alert("Email already exists");
+    //   return;
+    // }
+    console.log(uid, name, email, designation);
+    dispatch(updateUserIdData(uid, name, email, designation));
+    handleClose();
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+  const handleButtonClick = (item) => {
+    setName(item.name);
+    setEmail(item.email);
+    setUId(item.id);
+    setdesignation(item.designation);
+    setShow(true);
+  };
+  useEffect(() => {
+    // console.log("hello");
+    dispatch(getUsersDataId(id));
+  }, []);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
   return (
     <div>
-      {/* <UserNav/> */}
+      <UserNavbar/>
       <>
         <Table striped bordered hover variant="success">
           <thead>
@@ -78,7 +69,7 @@ if (error) {
               <th>{users.name}</th>
               <th>{users.email}</th>
               <th>{users.designation}</th>
-              <th><button style={{"backgroundColor":"blue"}} className="tableButton"onClick={() => handleButtonClick(users)}>Edit</button>
+              <th><button style={{ "backgroundColor": "blue" }} className="tableButton" onClick={() => handleButtonClick(users)}>Edit</button>
               </th>
             </tr>
           </thead>
@@ -115,7 +106,7 @@ if (error) {
                     type="test"
                     defaultValue={designation}
                     placeholder="Update designation"
-                    disabled = "true"
+                    disabled="true"
                     onChange={(e) => setdesignation(e.target.value)}
                   />
                 </Form.Group>
@@ -124,7 +115,7 @@ if (error) {
                   type="submit"
                   style={{ margin: "20px" }}
                   onClick={() => updateUser(uid, name, email, designation)}
-                  // onClick={handleClose}
+                // onClick={handleClose}
                 >
                   Save Changes
                 </Button>
