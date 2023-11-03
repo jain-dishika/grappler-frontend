@@ -1,5 +1,4 @@
 import "./App.css";
-import NavBar from "./Components/NavBar";
 import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
 // import Home from "./Pages/Home";
 import Users from "./Pages/Users";
